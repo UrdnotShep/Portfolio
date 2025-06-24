@@ -427,8 +427,7 @@ body {
 }
 
 [data-theme="dark"] .card {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(10px);
+    background: rgba(45, 52, 54, 0.9);
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -806,27 +805,23 @@ input:checked + .slider .circle .fa-moon {
         z-index: 100;
     }
 
-    .theme-switch-floating .theme-icon {
-        width: 22px;
-        height: 22px;
-        top: 4px;
+    .switch {
+        width: 64px;
+        height: 36px;
     }
 
-    .theme-switch-floating .switch {
-        width: 46px;
-        height: 24px;
-        margin: 0;
+    .slider .circle {
+        width: 28px;
+        height: 28px;
+        bottom: 4px;
     }
 
-    .theme-switch-floating .slider:before {
-        height: 18px;
-        width: 18px;
-        left: 3px;
-        bottom: 3px;
+    .slider .circle i {
+        font-size: 16px;
     }
 
-    .theme-switch-floating input:checked + .slider:before {
-        transform: translateX(22px);
+    input:checked + .slider .circle {
+        transform: translateX(28px);
     }
 
     /* Desactivar animaciones de la tarjeta de proyectos en móvil */
@@ -957,21 +952,25 @@ input:checked + .slider .circle .fa-moon {
     .theme-switch-floating {
         bottom: 16px;
         right: 16px;
-        width: 50px;
-        height: 30px;
     }
 
-    .theme-switch-floating .theme-icon {
-        width: 22px;
-        height: 22px;
+    .switch {
+        width: 56px;
+        height: 32px;
     }
 
-    .theme-switch-floating .theme-icon:first-child {
-        left: 4px;
+    .slider .circle {
+        width: 24px;
+        height: 24px;
+        bottom: 4px;
     }
 
-    .theme-switch-floating .theme-icon:last-child {
-        transform: translateX(20px);
+    .slider .circle i {
+        font-size: 14px;
+    }
+
+    input:checked + .slider .circle {
+        transform: translateX(24px);
     }
 
     .social-links {
@@ -993,24 +992,6 @@ input:checked + .slider .circle .fa-moon {
     .tech-title {
         font-size: 20px;
         margin-bottom: 20px;
-    }
-
-    .switch {
-        width: 50px;
-        height: 30px;
-    }
-
-    .slider .circle {
-        height: 22px;
-        width: 22px;
-    }
-
-    .slider .circle i {
-        font-size: 12px;
-    }
-
-    input:checked + .slider .circle {
-        transform: translateX(20px);
     }
 }
 
