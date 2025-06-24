@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -139,11 +140,15 @@
                 </div>
             </div>
             <div class="card theme-switch-card">
-                <div class="theme-switch-content">
-                    <img src="https://em-content.zobj.net/source/microsoft-teams/363/sun_2600-fe0f.png" alt="Light theme" class="theme-icon" id="lightIcon">
-                    <img src="https://em-content.zobj.net/source/microsoft-teams/363/crescent-moon_1f319.png" alt="Dark theme" class="theme-icon" id="darkIcon">
-                    <input type="checkbox" id="themeToggle" class="switch">
-                </div>
+                <label class="switch">
+                    <input type="checkbox" id="themeToggle">
+                    <span class="slider">
+                        <span class="circle">
+                            <i class="fa-solid fa-sun"></i>
+                            <i class="fa-solid fa-moon"></i>
+                        </span>
+                    </span>
+                </label>
             </div>
 
             <!-- Tercera fila -->
@@ -158,19 +163,22 @@
 
     <!-- Floating theme switch for mobile -->
     <div class="theme-switch-floating">
-        <img src="https://em-content.zobj.net/source/microsoft-teams/363/sun_2600-fe0f.png" alt="Light theme" class="theme-icon" id="lightIconMobile">
-        <img src="https://em-content.zobj.net/source/microsoft-teams/363/crescent-moon_1f319.png" alt="Dark theme" class="theme-icon" id="darkIconMobile">
-        <input type="checkbox" id="themeToggleMobile" class="switch">
+        <label class="switch">
+            <input type="checkbox" id="themeToggleMobile">
+            <span class="slider">
+                <span class="circle">
+                    <i class="fa-solid fa-sun"></i>
+                    <i class="fa-solid fa-moon"></i>
+                </span>
+            </span>
+        </label>
     </div>
 
     <script>
         const themeToggle = document.getElementById('themeToggle');
         const themeToggleMobile = document.getElementById('themeToggleMobile');
         const html = document.documentElement;
-        const lightIcon = document.getElementById('lightIcon');
-        const darkIcon = document.getElementById('darkIcon');
-        const lightIconMobile = document.getElementById('lightIconMobile');
-        const darkIconMobile = document.getElementById('darkIconMobile');
+        const themeToggles = document.querySelectorAll('.theme-switch-content, .theme-switch-floating');
 
         // Cargar tema guardado
         const savedTheme = localStorage.getItem('theme') || 'light';
@@ -179,23 +187,30 @@
         themeToggleMobile.checked = savedTheme === 'dark';
 
         // Función para cambiar tema
-        function toggleTheme(isDark) {
+        function toggleTheme(e) {
+            const isDark = e.target.checked;
             const newTheme = isDark ? 'dark' : 'light';
             html.dataset.theme = newTheme;
             localStorage.setItem('theme', newTheme);
+            
+            // Sincronizar ambos switches
             themeToggle.checked = isDark;
             themeToggleMobile.checked = isDark;
         }
 
-        // Cambiar tema al hacer clic en los iconos (versión escritorio)
-        lightIcon.addEventListener('click', () => toggleTheme(false));
-        darkIcon.addEventListener('click', () => toggleTheme(true));
-        themeToggle.addEventListener('change', (e) => toggleTheme(e.target.checked));
+        // Añadir eventos a los switches
+        themeToggle.addEventListener('change', toggleTheme);
+        themeToggleMobile.addEventListener('change', toggleTheme);
 
-        // Cambiar tema al hacer clic en los iconos (versión móvil)
-        lightIconMobile.addEventListener('click', () => toggleTheme(false));
-        darkIconMobile.addEventListener('click', () => toggleTheme(true));
-        themeToggleMobile.addEventListener('change', (e) => toggleTheme(e.target.checked));
+        // Hacer que el contenedor completo sea clickeable
+        themeToggles.forEach(toggle => {
+            toggle.addEventListener('click', (e) => {
+                if (e.target.classList.contains('switch')) return;
+                const checkbox = toggle.querySelector('.switch');
+                checkbox.checked = !checkbox.checked;
+                checkbox.dispatchEvent(new Event('change'));
+            });
+        });
 
         // Función para actualizar la altura de la tarjeta de presentación
         function updateProfileCardHeight() {
